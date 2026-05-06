@@ -1,0 +1,6 @@
+# Runtime dependencies for the companion ryu app (eventlet side).
+# Install in its OWN venv (typically Python 3.9; check ryu compatibility
+# notes for your distribution).
+ryu>=4.34
+eventlet<0.30
+dnspython<2.3

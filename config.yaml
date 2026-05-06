@@ -1,0 +1,53 @@
+# GapFuzz configuration. Mirrors the topology declared in question 6.
+
+cluster:
+  nodes:
+    - { name: onos-1, host: 172.18.0.11, port: 8181 }   # master for the switch
+    - { name: onos-2, host: 172.18.0.12, port: 8181 }   # backup
+    - { name: onos-3, host: 172.18.0.13, port: 8181 }   # backup
+
+# Spatial scheduling: R on onos-2, R' on onos-3 (the two backups, per Q3).
+injection:
+  target_R: onos-2
+  target_R_prime: onos-3
+
+# Data Plane Collector: REST endpoint of the companion ryu app, plus the
+# device id used in ONOS (the OVS bridge connects to all controllers with
+# this dpid).
+data_plane:
+  ryu_host: 127.0.0.1                        # ryu-manager runs on gapfuzz-host
+  ryu_port: 8080
+  device_id: "of:0000000000000001"           # ONOS-style; converted to dpid for ryu
+  bridge: s1
+  trace_in_port: 3                           # in_port for ovs-appctl ofproto/trace
+
+# Reset, stage 2 (switch-side). Edit the ssh user/host if needed; remove
+# the key entirely (or set to null) to skip stage 2.
+reset:
+  # Both commands run via `bash -c` so we can chain del-flows (OF
+  # user-space) with dpctl/del-flows (kernel megaflow cache). Without
+  # the second, stale megaflows from a previous iteration can persist
+  # and pollute the next observation.
+  dp_command_template: 'bash -c "sudo ovs-ofctl -O OpenFlow13 del-flows {bridge} && sudo ovs-appctl dpctl/del-flows"'
+
+# Algorithm 1 parameters (Section 5.4).
+#   delta_t_0_s : initial Δt for Phase 2 doubling
+#   epsilon_s   : binary-search precision
+#   delta_s     : observation delay; delta > T_2.
+#                 With ONOS backupPeriod = 2000 ms, factor 5x => 10 s.
+algorithm:
+  delta_t_0_s: 0.010      # 10 ms
+  epsilon_s: 0.001        #  1 ms
+  delta_s: 3.0            # 3 s — > T_2 = backupPeriod, observation post-réplication
+  lifetime_s: 30.0        # 30 s — re-observation window after Phase-1 divergence
+                          #         (TRANSIENT vs PERSISTENT)
+
+# ONOS REST app id under which GapFuzz installs its flows (Reset uses
+# this to avoid touching flows installed by other applications).
+app_id: gapfuzz
+
+# Per-request HTTP timeout (seconds) for both ONOS and ryu REST calls.
+request_timeout_s: 10.0
+
+# Output (JSONL: one record per template).
+output_path: results.jsonl

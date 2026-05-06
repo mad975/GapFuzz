@@ -1,0 +1,14 @@
+name: contradictory_drop_vs_output
+device_id: "of:0000000000000001"
+priority: 40000
+
+selector:
+  eth_type: 0x0800
+  ipv4_dst: "10.0.0.10/32"
+
+action_a:
+  type: OUTPUT
+  port: 1
+
+action_b:
+  type: DROP

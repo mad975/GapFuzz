@@ -1,0 +1,4 @@
+# Runtime dependencies for the GapFuzz core (asyncio side).
+# Run inside its own venv on gapfuzz-host.
+aiohttp>=3.9,<4
+PyYAML>=6.0,<7

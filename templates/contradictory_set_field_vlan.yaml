@@ -1,0 +1,18 @@
+name: contradictory_set_field_vlan
+device_id: "of:0000000000000001"
+priority: 40000
+
+selector:
+  eth_type: 0x0800
+  vlan_vid: 1
+  ipv4_dst: "10.0.0.50/32"
+
+action_a:
+  type: SET_FIELD
+  field: vlan_vid
+  value: 100
+
+action_b:
+  type: SET_FIELD
+  field: vlan_vid
+  value: 200

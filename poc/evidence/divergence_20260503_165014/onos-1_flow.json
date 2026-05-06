@@ -1,0 +1,38 @@
+{
+  "groupId": 0,
+  "state": "ADDED",
+  "life": 25,
+  "liveType": "UNKNOWN",
+  "lastSeen": 1777819809619,
+  "packets": 0,
+  "bytes": 0,
+  "id": "50102546021166347",
+  "appId": "org.onosproject.rest",
+  "priority": 50000,
+  "timeout": 0,
+  "isPermanent": true,
+  "deviceId": "of:0000000000000001",
+  "tableId": 0,
+  "tableName": "0",
+  "treatment": {
+    "instructions": [
+      {
+        "type": "OUTPUT",
+        "port": "1"
+      }
+    ],
+    "deferred": []
+  },
+  "selector": {
+    "criteria": [
+      {
+        "type": "ETH_TYPE",
+        "ethType": "0x800"
+      },
+      {
+        "type": "IPV4_DST",
+        "ip": "10.0.0.99/32"
+      }
+    ]
+  }
+}

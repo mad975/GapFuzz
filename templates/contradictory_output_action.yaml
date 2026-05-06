@@ -1,0 +1,20 @@
+# Smallest example: two contradictory OUTPUT ports for the same IPv4_DST flow.
+# Mirrors the PoC described in Section 3.2 (the implicit mapping baseline).
+
+name: contradictory_output_action
+device_id: "of:0000000000000001"
+priority: 40000
+
+selector:
+  eth_type: 0x0800
+  ipv4_dst: "10.0.0.99/32"
+
+# R installs OUTPUT:1 on its target node (per config: onos-2, a backup).
+action_a:
+  type: OUTPUT
+  port: 1
+
+# R' installs OUTPUT:2 on the other target node (per config: onos-3, a backup).
+action_b:
+  type: OUTPUT
+  port: 2

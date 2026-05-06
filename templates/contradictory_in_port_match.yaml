@@ -1,0 +1,16 @@
+name: contradictory_in_port_match
+device_id: "of:0000000000000001"
+priority: 40000
+
+selector:
+  in_port: 3
+  eth_type: 0x0800
+  ipv4_dst: "10.0.0.13/32"
+
+action_a:
+  type: OUTPUT
+  port: 1
+
+action_b:
+  type: OUTPUT
+  port: 2

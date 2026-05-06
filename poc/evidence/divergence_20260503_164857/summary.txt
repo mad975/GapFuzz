@@ -1,0 +1,34 @@
+=================================================================
+ MOTIVATING EXAMPLE — CROSS-PLANE DIVERGENCE
+ Captured: 2026-05-03T16:48:58.030687
+ Test id:  #1
+ Lifetime: PERSISTENT at DP level (OF healed, kernel datapath stale)
+=================================================================
+
+--- INJECTION ---
+  A: HTTP 200 -> OUTPUT:1 on 172.18.0.11 (37.4 ms)
+  B: HTTP 200 -> OUTPUT:2 on 172.18.0.12 (33.7 ms)
+
+--- STATE AT t+3s (divergence observed) ---
+  ONOS onos-1             : OUTPUT:2
+  ONOS onos-2             : OUTPUT:2
+  ONOS onos-3             : OUTPUT:2
+  Switch (ovs-ofctl)      : OUTPUT:2   [consistent]
+  Datapath (ofproto/trace): OUTPUT:1   [DIVERGENT]
+
+--- STATE AT t+30s (lifetime check) ---
+  ONOS onos-1             : OUTPUT:2
+  ONOS onos-2             : OUTPUT:2
+  ONOS onos-3             : OUTPUT:2
+  Switch (ovs-ofctl)      : OUTPUT:2   [consistent]
+  Datapath (ofproto/trace): OUTPUT:1   [DIVERGENT]
+
+--- VERDICT ---
+  PERSISTENT divergence at the KERNEL DATAPATH level.
+  At t+30s, ONOS REST and ovs-ofctl dump-flows agree (OF-level
+  reconciliation effective), BUT ofproto/trace shows the kernel
+  datapath still applies the stale action (megaflow cache not
+  invalidated). An operator monitoring ONOS or OVS user-space
+  sees a consistent state, while real packets are forwarded to
+  the wrong port — a concealed forwarding inconsistency.
+=================================================================

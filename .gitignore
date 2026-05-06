@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtualenvs (recreate via requirements.txt)
+venv/
+venv-gapfuzz/
+venv-ryu/
+
+# Transient campaign outputs
+results.jsonl
+run_logs/
+run_logs_*/
+*.log
+*.bak.*
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Claude Code local config
+.claude/
+.claude.json
+CLAUDE.md

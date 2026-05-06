@@ -1,0 +1,29 @@
+============================================================
+ MOTIVATING EXAMPLE — CROSS-PLANE DIVERGENCE
+ Captured: 2026-05-03T16:22:41.001871
+ Test id:  #6
+ Lifetime: TRANSIENT (healed between t+3s and t+30s)
+============================================================
+
+--- INJECTION ---
+  A: HTTP 200 -> OUTPUT:1 on 172.18.0.11 (35.8 ms)
+  B: HTTP 200 -> OUTPUT:2 on 172.18.0.12 (35.6 ms)
+
+--- STATE AT t+3s (divergence observed) ---
+  ONOS onos-1: OUTPUT:2
+  ONOS onos-2: OUTPUT:2
+  ONOS onos-3: OUTPUT:2
+  Switch s1:  OUTPUT:1
+
+--- STATE AT t+30s (lifetime check) ---
+  ONOS onos-1: OUTPUT:2
+  ONOS onos-2: OUTPUT:2
+  ONOS onos-3: OUTPUT:2
+  Switch s1:  OUTPUT:2
+
+--- VERDICT ---
+  TRANSIENT cross-plane divergence.
+  Observable for at least 3s but reconciled within 30s.
+  The 3s window is sufficient for an attacker to act on the
+  inconsistency (redirect traffic, exfiltrate packets, etc.).
+============================================================

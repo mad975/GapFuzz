@@ -1,0 +1,10 @@
+Flow: ip,in_port=3,vlan_tci=0x0000,dl_src=00:00:00:00:00:00,dl_dst=00:00:00:00:00:00,nw_src=0.0.0.0,nw_dst=10.0.0.99,nw_proto=0,nw_tos=0,nw_ecn=0,nw_ttl=0,nw_frag=no
+
+bridge("s1")
+------------
+ 0. ip,nw_dst=10.0.0.99, priority 50000, cookie 0xb2000009ef2d0b
+    output:2
+
+Final flow: unchanged
+Megaflow: recirc_id=0,eth,ip,in_port=3,nw_dst=10.0.0.99,nw_frag=no
+Datapath actions: 1

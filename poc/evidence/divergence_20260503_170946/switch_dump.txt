@@ -1,0 +1,7 @@
+OFPST_FLOW reply (OF1.3) (xid=0x2):
+ cookie=0xb2000009ef2d0b, duration=30.203s, table=0, n_packets=0, n_bytes=0, send_flow_rem priority=50000,ip,nw_dst=10.0.0.99 actions=output:1
+ cookie=0x100007a585b6f, duration=8435.165s, table=0, n_packets=0, n_bytes=0, send_flow_rem priority=40000,dl_type=0x8942 actions=CONTROLLER:65535,clear_actions
+ cookie=0x10000021b41dc, duration=8435.165s, table=0, n_packets=0, n_bytes=0, send_flow_rem priority=5,ip actions=CONTROLLER:65535,clear_actions
+ cookie=0x10000ea6f4b8e, duration=8435.165s, table=0, n_packets=0, n_bytes=0, send_flow_rem priority=40000,arp actions=CONTROLLER:65535,clear_actions
+ cookie=0x100009465555a, duration=8435.165s, table=0, n_packets=0, n_bytes=0, send_flow_rem priority=40000,dl_type=0x88cc actions=CONTROLLER:65535,clear_actions
+ cookie=0xb000005e8316bc, duration=8435.160s, table=0, n_packets=0, n_bytes=0, send_flow_rem priority=40000,ip,dl_vlan=1,nw_dst=10.0.0.50 actions=set_field:4196->vlan_vid
