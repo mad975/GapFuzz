@@ -20,7 +20,3 @@ run_logs_*/
 .vscode/
 .idea/
 
-# Claude Code local config
-.claude/
-.claude.json
-CLAUDE.md
