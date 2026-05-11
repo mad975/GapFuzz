@@ -15,8 +15,4 @@ run_logs_*/
 *.log
 *.bak.*
 
-# OS / editor
-.DS_Store
-.vscode/
-.idea/
 
